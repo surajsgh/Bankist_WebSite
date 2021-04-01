@@ -76,3 +76,34 @@ btnScrollTo.addEventListener('click', function (e) {
   // Modern smooth scrolling
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+///////////////////////////////////////////// Page Navigation //////////////////////////////////////////////////
+
+// We could've used this strategy but we chose not to because this strategy wont't perform efficiently in complex situation.
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth',
+//     });
+//   });
+// });
+
+// 1. Add event listener to common parent element.
+// 2. Determine what element originated the event.
+
+document.querySelector('.nav__links').addEventListener('click', function (el) {
+  el.preventDefault();
+  // console.log(el.target);
+
+  // Matching Strategy
+  if (el.target.classList.contains('nav__link')) {
+    const id = el.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+});
