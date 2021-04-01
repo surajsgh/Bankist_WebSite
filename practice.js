@@ -79,4 +79,38 @@ logo.classList.add();
 logo.classList.remove();
 logo.classList.toggle();
 logo.classList.contains();
+
+const h1 = document.querySelector('h1');
+
+// Going downwards
+// querySelector or querySelectorAll helps to find the dom tree no matter how deep inside the dom tree.
+console.log(h1);
+console.log(h1.querySelectorAll('.highlight'));
+
+// Includes everything
+console.log(h1.childNodes);
+
+// Includes only html tags
+console.log(h1.children);
+
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+// Going Upwards (Both the lines gives the same result.)
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// closest helps to find the dom tree no matter how far away from the dom tree.
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// Going sideways
+// Includes just html tags
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+// Includes everything
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);
 */
