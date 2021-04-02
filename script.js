@@ -192,7 +192,7 @@ const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 console.log(navHeight);
 
-const obsCallback = function (entries) {
+const obsCallback = function (entries, observer) {
   const [entry] = entries;
   console.log(entry);
   if (!entry.isIntersecting) {
@@ -200,6 +200,8 @@ const obsCallback = function (entries) {
   } else {
     nav.classList.remove('sticky');
   }
+  // Stops the observation and optimise the performance.
+  observer.unobserve(entry.target);
 };
 
 const obsOptions = {
@@ -210,3 +212,33 @@ const obsOptions = {
 
 const headObserver = new IntersectionObserver(obsCallback, obsOptions);
 headObserver.observe(header);
+
+///////////////////////////////////////////// Reveal /////////////////////////////////////////////
+
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) {
+    return;
+  }
+  entry.target.classList.remove('section--hidden');
+  // Stops the observation and optimise the performance.
+  observer.unobserve(entry.target);
+};
+
+const obsRevealOptions = {
+  root: null,
+  threshold: 0.15,
+};
+
+const sectionObserver = new IntersectionObserver(
+  revealSection,
+  obsRevealOptions
+);
+
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
