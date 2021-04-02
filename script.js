@@ -270,3 +270,32 @@ const imgObserver = new IntersectionObserver(loadImg, {
   rootMargin: '200px',
 });
 imgTargets.forEach(img => imgObserver.observe(img));
+
+///////////////////////////////////////////// Slides /////////////////////////////////////////////
+
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+let currSlide = 0;
+const maxSlides = slides.length;
+
+slider.style.transform = 'scale(0.4) translateX(-800px)';
+slider.style.overflow = 'visible';
+
+slides.forEach(
+  (slide, i) => (slide.style.transform = `translateX(${100 * i}%)`)
+);
+
+btnRight.addEventListener('click', function () {
+  if (currSlide === maxSlides - 1) {
+    currSlide = 0;
+  } else {
+    currSlide++;
+  }
+  slides.forEach(
+    (slide, i) =>
+      (slide.style.transform = `translateX(${100 * (i - currSlide)}%)`)
+  );
+});
