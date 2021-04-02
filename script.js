@@ -284,18 +284,33 @@ const maxSlides = slides.length;
 slider.style.transform = 'scale(0.4) translateX(-800px)';
 slider.style.overflow = 'visible';
 
-slides.forEach(
-  (slide, i) => (slide.style.transform = `translateX(${100 * i}%)`)
-);
+// Change the slide continuously to the right side.
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+goToSlide(0);
 
-btnRight.addEventListener('click', function () {
+// Prev Slide
+const prevSlide = function () {
+  if (currSlide === 0) {
+    currSlide = maxSlides - 1;
+  } else {
+    currSlide--;
+  }
+  goToSlide(currSlide);
+};
+
+// Next Slide
+const nextSlide = function () {
   if (currSlide === maxSlides - 1) {
     currSlide = 0;
   } else {
     currSlide++;
   }
-  slides.forEach(
-    (slide, i) =>
-      (slide.style.transform = `translateX(${100 * (i - currSlide)}%)`)
-  );
-});
+  goToSlide(currSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
