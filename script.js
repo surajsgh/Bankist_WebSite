@@ -165,3 +165,48 @@ nav.addEventListener('mouseover', function (e) {
 nav.addEventListener('mouseout', function (e) {
   handleHover(e, 1);
 });
+
+/////////////////////////////////////////////Sticky Navigation Bar/////////////////////////////////////////////
+
+// We're gonna achieve the end-result by using intersection observer API.
+// Intersection API allows our code to check how our target element intersects the other element or specific viewport.
+
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   // This is the root element our target element intersect to.
+//   // root: null i.e. Viewport
+//   root: null,
+//   // This is the percentage of intersection at which the observer callback will be called.
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+
+const obsCallback = function (entries) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+};
+
+const headObserver = new IntersectionObserver(obsCallback, obsOptions);
+headObserver.observe(header);
