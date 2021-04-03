@@ -113,4 +113,25 @@ console.log(h1.previousSibling);
 console.log(h1.nextSibling);
 
 console.log(h1.parentElement.children);
+
+// DOMContentLoaded Event
+// This event is passed as soon as the whole html file has been parsed i.e. downloaded and executed and then converted into the dom tree but always remember that JavaScript file needs to be executed to before that event is passed. However, this event doesn't wait for images and other resources to load.
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built!', e);
+});
+
+// Load event
+// Unlike DOMContentLoaded, this event doesn't wait for other resources like images or CSS file to get loaded completely.
+// This event is fired as soon as the complete page is loaded completely.
+window.addEventListener('load', function (e) {
+  console.log('The complete page is loaded!', e);
+});
+
+// beforeunload
+// This event is used to show the prompt asking if the user wants to leave the page.
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
 */
